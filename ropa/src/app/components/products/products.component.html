@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-12">
+        <div class="row">
+            @if(products$ | async; as products){
+                @for(product of products; track product._id){
+                    <div class="col-lg-2 col-md-4 col-6 p-2">
+                        <mat-card class="bg-white text-center h-100" appearance="outlined"
+                        [routerLink]="['/product', product._id]">
+                            
+                            <img mat-card-image class="p-1" [src]="'/img/products/' + product.img" [alt]="product.name | translate">
+                            <mat-card-content>
+                              <p>
+                                {{product.name | translate}}</p>
+                               <p>{{product.price}}€</p> 
+                              
+                            </mat-card-content>
+                            
+                          </mat-card>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

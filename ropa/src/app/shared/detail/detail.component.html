@@ -1,0 +1,25 @@
+@if(showDetail){
+    <div class="detail position-fixed top-0 end-0 bg-light border h-100 p-3 z-2" [@slide]>
+
+        <!-- Titulo -->
+        <div class="row align-items-center">
+            <div class="col-lg-10 col-md-9 col-8">
+                <ng-content select="[detail-title]"></ng-content>
+            </div>
+            <div class="col-lg-2 col-md-3 col-4 text-end p-3">
+                <i class="bi bi-x-lg detail__close" (click)="closeDetail()"></i>
+                
+            </div>
+        </div>
+
+        <!-- Contenido -->
+        <div class="row mt-4 ">
+            <div class="col-12">
+                <ng-content select="[detail-content]"></ng-content>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="position-fixed top-0 end-0 bg-secondary opacity-50 w-100 h-100 z-1"></div>
+}

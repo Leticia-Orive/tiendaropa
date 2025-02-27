@@ -1,0 +1,52 @@
+
+<form [formGroup]="formCategory" (ngSubmit)="submit()">
+
+    <!-- Campos ocultos -->
+    <input type="hidden" name="id" formControlName="id">
+    <input type="hidden" name="user" formControlName="user">
+    <input type="hidden" name="createdOn" formControlName="createdOn">
+
+    
+
+    <!-- Nombre -->
+    <div class="row">
+        <div class="col-12">
+            <label class="form-label" for="name">Nombre *</label>
+            <input type="text" name="name" id="name" formControlName="name" class="form-control" [ngClass]="{
+                'is-valid': controlName && controlName.dirty && !controlName.errors,
+                'is-invalid': controlName && controlName.dirty && controlName.errors
+            }">
+            <div class="valid-feedback">
+                <span>Correcto</span>
+            </div>
+            <div class="invalid-feedback">
+                @if(controlName && controlName.errors){
+                    @if(controlName.errors['required']){
+                        <span class="d-block">Requerido</span>
+                    }
+                    @if(controlName.errors['categoryExists']){
+                        <span class="d-block">La categoría ya existe</span>
+                    }
+                }
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Color -->
+    <div class="row mt-2">
+        <div class="col-12">
+            <label class="form-label" for="color">Color *</label>
+            <input type="color" name="color" id="color" formControlName="color" class="form-control">
+        </div>
+    </div>
+
+    <!-- Boton guardar -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <input type="submit" class="btn btn-primary" [disabled]="formCategory.invalid"  value="Guardar">
+        </div>
+    </div>
+
+
+</form>

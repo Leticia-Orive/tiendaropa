@@ -1,0 +1,41 @@
+@if(filterForm){
+    <form>
+    <div class="row">
+        @if(!onlyYear){
+            <div class="col-lg-2 col-md-3 col-12">
+                <label for="date-start" class="form-label">Fecha de inicio</label>
+                <input type="date" name="date-start" id="date-start" class="form-control" [(ngModel)]="filterForm.dateStart" (change)="onFilter()">
+            </div>
+            <div class="col-lg-2 col-md-3 col-12">
+                <label for="date-end" class="form-label">Fecha de fin</label>
+                <input type="date" name="date-end" id="date-end" class="form-control" [(ngModel)]="filterForm.dateEnd" (change)="onFilter()">
+            </div>
+        }@else{
+            <div class="col-lg-2 col-md-3 col-12">
+               <label for="year" class="form-label">Año</label>
+            <select name="year" id="year" class="form-control"
+             [(ngModel)]="yearSelected" (change)="onFilter()">
+                @for(year of years; track year){
+                    <option [value]="year">{{year}}</option>
+
+                }
+            </select> 
+            </div>
+        }
+        
+        @if(categoriesPromise | async; as categories){
+            <div class="col-lg-4 col-md-5 col-12">
+                <label for="category" class="form-label">Categoría</label>
+                <select name="category" id="category" class="form-control" 
+                [(ngModel)]="filterForm.category" (change)="onFilter()">
+                <option [ngValue]="''">Selecciona una categoria</option>
+                    @for(category of categories; track category.id){
+                        <option [value]="category.id">{{category.name}}</option>
+                    }
+                </select>
+            </div>
+        }   
+       
+    </div>
+</form>
+}

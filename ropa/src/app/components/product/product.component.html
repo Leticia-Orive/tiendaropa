@@ -1,0 +1,106 @@
+<div class="row">
+    <div class="col-12">
+
+        @if(product$ | async; as product){
+
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <span class="h1">{{product.name | translate}}</span>
+                    <mat-divider class="mt-4 mb-4" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 h-100 text-center" [ngClass]="{'col-md-4 sticky-md-top': product.extras}">
+                    
+                    <img [src]="'/img/products/' + product.img" [alt]="product.name | translate">
+
+                    <div class="row mt-4 mb-4">
+                        <div class="col-7 align-content-center">
+                            <span class="h4">{{'label.price' | translate}}: {{product | calculateTotalPrice: quantitySignal()}} €</span>
+                        </div>
+                        <div class="col-5">
+                            <button mat-mini-fab class="me-2" (click)="oneLessProduct()" [disabled]="quantitySignal() <= 1">
+                                <mat-icon>remove</mat-icon>
+                            </button>
+                            <span class="h4 ms-2 me-2">{{quantitySignal()}}</span>
+                            <button mat-mini-fab class="ms-2" (click)="oneMoreProduct()">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button mat-flat-button class="me-2" (click)="addProduct(product)">{{'label.add.product' | translate}}</button>
+
+                    <button mat-flat-button class="me-2" (click)="goBack()">{{'label.back' | translate}}</button>
+
+                </div>
+
+                @if(product.extras){
+                    <div class="col-md-8 col-12">
+
+                        <div class="row">
+                            <div class="col-12">
+
+                                @for(extra of product.extras; track extra){
+
+                                    @if(extra.label){
+                                        <div class="row mb-4">
+                                            <div class="col-12">
+                                                <span class="h2">{{extra.label | translate}}</span>
+                                            </div>
+                                        </div>
+                                    }
+                                   
+                                    <div class="row">
+                                        @for(block of extra.blocks; track block){
+                                            <div class="col-md-4 col-6 mb-4">
+                                                <mat-card class="bg-white text-center h-100">
+                                                    <img mat-card-image class="p-1" [src]="'/img/products/' + block.img" alt="">
+                                                    <mat-card-content>
+                                                        <span class="d-block">{{block.name | translate}}</span>
+                                                        @if(block.options.length == 1){
+                                                            <span class="d-block">{{block.options[0].activate ? block.options[0].price : '0'}} €</span>
+                                                            <mat-checkbox [(ngModel)]="block.options[0].activate"></mat-checkbox>
+                                                        }
+                                                        @if(block.options.length > 1){
+                                                            @let extraSelected = block.options | extraSelected;
+                                                           <!--Esto es una forma de ponerlo
+                                                            <span class="d-block">{{(block.options| extraSelected)?.price }} €</span>
+                                                           --> 
+                                                           <span class="d-block">{{extraSelected?.price }} €</span>
+                                                            <mat-radio-group class="d-flex flex-column text-start" (change)="changeOption(block.options, $event)">
+                                                                @for(option of block.options; track option){
+                                                                   <mat-radio-button [checked]="option.activate" 
+                                                                   [value]="option">
+                                                                   @if(option.name){
+                                                                    {{option.name | translate}}
+                                                                   }
+                                                                    
+                                                                </mat-radio-button> 
+                                                                }
+                                                                
+                                                            </mat-radio-group>
+                                                        }
+                                                    </mat-card-content>
+                                                </mat-card>
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <mat-divider class="mt-4 mb-4" />
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+                }
+               
+                
+            </div>
+
+        }
+
+    </div>
+</div>

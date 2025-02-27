@@ -1,0 +1,31 @@
+<mat-dialog-content>
+    <ul class="p-0">
+        @for(block of extraBlocks; track block){
+            @let extraSelected = block.options | extraSelected;
+            @if(extraSelected){
+                @if(block.options.length == 1){
+                    <li class="list-unstyled fw-bold">{{block.name | translate}}</li>
+                }@else {
+                    <li class="list-unstyled">
+                        <span class="fw-bold">{{block.name | translate}}: </span>
+                        @if(extraSelected.name){
+                            <!--Podemos ponerlo asi:-->
+                            <span>{{extraSelected.name | translate}}</span>
+                            <!--O asi:
+                            <span>{{extraSelected?.name | translate}}</span>
+                            -->
+                        }
+                        
+                    </li>
+                }
+
+            }
+
+        }
+    </ul>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>{{'label.ok' | translate}}</button>
+    
+  </mat-dialog-actions>

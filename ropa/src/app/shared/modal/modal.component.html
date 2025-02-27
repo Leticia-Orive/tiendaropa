@@ -1,0 +1,18 @@
+<!-- data-bs-backdrop="static" hace que no se pueda clickar fuera del modal -->
+<div class="modal fade" data-bs-backdrop="static" #modal>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">{{modalData?.title}}</h1>
+                <button type="button" class="btn-close" (click)="hide()"></button>
+            </div>
+            <div class="modal-body">
+                {{modalData?.content}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="hide()">{{modalData?.btnTextClose}}</button>
+                <button type="button" class="btn btn-primary" (click)="confirm()">{{modalData?.btnTextAccept}}</button>
+            </div>
+        </div>
+    </div>
+</div>

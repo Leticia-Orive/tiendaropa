@@ -1,0 +1,120 @@
+<div class="row mb-4">
+    <div class="col-12">
+
+
+        <div class="row mt-2 mb-2">
+            <div class="col-12">
+                <button class="btn btn-primary me-2" (click)="openDetail('deposit')"><i class="bi bi-plus"></i> Añadir ingreso</button>
+                <button class="btn btn-primary" (click)="openDetail('expense')"><i class="bi bi-plus"></i>Añadir gasto</button>
+            </div>
+        </div>
+
+        <div class="row mt-2 mb-2">
+            <div class="col-12">
+                <app-filter [ngModel]="filterSignal()" (ngModelChange)="onFilter($event)" />
+            </div>
+        </div>
+
+        <div class="row mb-1">
+            <div class="col-6 text-start">
+                <span>Total: 
+                    <span [ngClass]="{
+                        'text-danger': totalQuantityRegistriesSignal() < 0,
+                        'text-success': totalQuantityRegistriesSignal() >= 0
+                    }">{{totalQuantityRegistriesSignal()}} €</span>
+                </span>
+            </div>
+            <div class="col-6 text-end">
+                <span>Número de registros: {{totalRegistriesSignal()}}</span>
+            </div>
+        </div>
+
+        @for(registry of registriesSignal(); track registry.id){
+            <div class="row g-0">
+                <div class="col-12 rounded border p-1 mb-2">
+
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="d-block fw-bold">Fecha</span>
+                            <span class="d-block">{{registry.date | date: 'dd MMM YYYY'}}</span>
+                        </div>
+
+                        <div class="col-3">
+                            <span class="d-block fw-bold">Descripción</span>
+                            <span class="d-block">{{registry.description}}</span>
+                        </div>
+
+                        <div class="col-3">
+                            <span class="d-block fw-bold">Categoría</span>
+                            @if(registry.idCategory){
+                                @if(registry.idCategory | getCategory | async; as category){
+                                    <span class="d-block">{{category.name}}</span>
+                                }
+                            }
+                        </div>
+
+                        <div class="col-3">
+                            <span class="d-block fw-bold">Cantidad</span>
+                            <span class="d-block" [ngClass]="{
+                                'text-danger': registry.type === 'expense',
+                                'text-success': registry.type === 'deposit'
+                            }">
+                                {{registry.type === 'deposit' ? '+' : '-'}}{{registry.quantity}}
+                            </span>
+                        </div>
+
+                        <div class="col-1 text-end align-self-center">
+                            <i class="bi bi-pencil text-warning me-2" (click)="openUpdateDetail(registry)"></i>
+                            <i class="bi bi-trash text-danger me-2" (click)="openModalConfirm(registry)"></i>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+
+
+        } @empty {
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <span class="h3">No hay registros</span>
+                </div>
+            </div>
+        }
+
+        @if(nextRegistriesSignal() || previousRegistriesSignal()){
+            <div class="row mt-2 mb-2">
+                <div class="col-6 text-start">
+                    @if(previousRegistriesSignal()){
+                        <button class="btn btn-primary" (click)="previous()">Página anterior</button>
+                    }
+                </div>
+                <div class="col-6 text-end">
+                    @if(nextRegistriesSignal()){
+                        <button class="btn btn-primary" (click)="next()">Página siguiente</button>
+                    }
+                </div>
+            </div>
+        }
+        
+    </div>
+</div>
+
+@if(showDetail){
+
+    <app-detail (close)="closeDetail()">
+
+        <span class="h1" detail-registry>Registro</span>
+
+        <div detail-content>
+            @if(registrySelected){
+                <app-update-registry [registry]="registrySelected" [typeRegistry]="typeRegistry" (registryUpdated)="closeDetail(true)"/>
+            }@else{
+                <app-add-registry [typeRegistry]="typeRegistry" (registrySaved)="closeDetail(true)"/>
+            }
+        </div>
+
+
+    </app-detail>
+
+}

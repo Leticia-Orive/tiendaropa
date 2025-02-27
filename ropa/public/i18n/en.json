@@ -1,0 +1,15 @@
+{
+    "STORE": "Store Modal`s",
+    "REGISTRIES": "Registries",
+    "CATEGORIES": "Categories",
+    "PRODUCTS": "Products",
+    "GRAPHICS": "Graphics",
+    "LOGOUT": "Logout",
+    "label.footer": "STORE Model`s © {{year}} All rights reserved",
+    "ADD_CATEGORY": "Add a category",
+    "NUMBER_OF_CATEGORIES": "Number of categories",
+    "NO_CATEGORIES": "No categories",
+    "PREVIOUS_PAGE": "Previous page",
+    "NEXT_PAGE": "Next page",
+    "CATEGORY": "Category"
+  }

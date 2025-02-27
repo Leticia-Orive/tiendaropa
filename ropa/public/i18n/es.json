@@ -1,0 +1,15 @@
+{
+    "STORE": "Tienda Modal`s",
+    "REGISTRIES": "Registros",
+    "CATEGORIES": "Categorías",
+    "PRODUCTS": "Productos",
+    "GRAPHICS": "Gráficas",
+    "LOGOUT": "Cerrar sesión",
+    "label.footer": "Tienda Modal`s queen © {{year}} Todos los derechos reservados",
+    "ADD_CATEGORY": "Añadir una categoría",
+    "NUMBER_OF_CATEGORIES": "Número de categorías",
+    "NO_CATEGORIES": "No hay categorías",
+    "PREVIOUS_PAGE": "Página anterior",
+    "NEXT_PAGE": "Página siguiente",
+    "CATEGORY": "Categoría"
+  }
